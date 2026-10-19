@@ -126,11 +126,11 @@ celery -A app.workers.celery_app:celery_app worker --loglevel=info
 ## 5. Exercise the flow
 
 ```bash
-curl -s http://localhost:8000/
+curl -s https://walnut.buildloop.fyi/
 
-curl -s -X POST http://localhost:8000/v1/transactions/seed
+curl -s -X POST https://walnut.buildloop.fyi/v1/transactions/seed
 
-curl -s -X POST http://localhost:8000/v1/webhooks/transactions \
+curl -s -X POST https://walnut.buildloop.fyi/v1/webhooks/transactions \
   -H 'Content-Type: application/json' \
   -d '{
     "transaction_id": "txn_abc123def456",
@@ -140,7 +140,7 @@ curl -s -X POST http://localhost:8000/v1/webhooks/transactions \
     "currency": "INR"
   }'
 
-curl -s http://localhost:8000/v1/transactions/txn_abc123def456
+curl -s https://walnut.buildloop.fyi/v1/transactions/txn_abc123def456
 ```
 
 Right after the webhook the status is `PROCESSING` and `processed_at` is `null`. About 30 seconds later it is `PROCESSED` with `processed_at` set. Sending that webhook again returns `202` and does not create a second row.
